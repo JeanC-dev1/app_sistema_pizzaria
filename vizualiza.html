@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar HTMLs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Visualizar HTMLs Armazenados</h1>
+        <div id="htmlContainer"></div>
+        <button id="backBtn" class="btn btn-primary mt-3">Voltar</button>
+    </div>
+
+    <script>
+        function visualizarHTMLs() {
+
+            const htmls = JSON.parse(localStorage.getItem('htmls')) || [];
+            const container = document.getElementById('htmlContainer');
+
+   
+            if (htmls.length === 0) {
+                container.innerHTML = '<h3>Nenhum HTML armazenado.</h3>';
+            } else {
+                htmls.forEach((html, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card mb-3';
+                    card.innerHTML = `
+                        <div class="card-body">
+                            <h5 class="card-title">HTML ${index + 1}</h5>
+                            <pre>${html}</pre>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+
+        visualizarHTMLs();
+
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
